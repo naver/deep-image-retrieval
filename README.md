@@ -59,10 +59,10 @@ The table below contains the pre-trained models that we provide with this librar
 
 | Model | Oxford5K | Paris6K |  ROxford5K (med/hard) | RParis6K (med/hard) |
 |---	|:-:|:-:|:-:|:-:|
-|  [Resnet101-TL-MAC]() |   	|  91.0| 63.6 / 37.1 	|   76.7 / 55.7  |
-|  [Resnet101-TL-GeM](https://www.dropbox.com/s/9a52eao5jo1h745/Resnet101-TL-GeM.pt?dl=1) | 85.5 | 93.4 | 64.8 / 41.6	|  78.9 / 59.4  |
+|  [Resnet101-TL-MAC]() |  84.2 	|  91.0| 63.6 / 37.1 	|   76.7 / 55.7  |
+|  [Resnet101-TL-GeM](https://drive.google.com/open?id=1vhm1GYvn8T3-1C4SPjPNJOuTU9UxKAG6) | 85.5 | 93.4 | 64.8 / 41.6	|  78.9 / 59.4  |
 |  [Resnet50-AP-GeM]() | 87.9 	| 91.9 | 65.8 / 41.7| 77.6 / 57.3 |
-|  [Resnet101-AP-GeM](https://www.dropbox.com/s/1rbtunl17t8ivdl/Resnet-101-AP-GeM.pt?dl=1) | 89.3 | 93.0 | 67.4 / 42.8|  80.4/61.0 |
+|  [Resnet101-AP-GeM](https://drive.google.com/open?id=1UWJGDuHtzaQdFhSMojoYVQjmCXhIwVvy) | 89.3 | 93.0 | 67.4 / 42.8|  80.4/61.0 |
 |  [Resnet101-AP-GeM-LM18]()** |  88.4	| 93.0 | 66.5 / 43.1	|   80.2 / 60.4  |
 
 
