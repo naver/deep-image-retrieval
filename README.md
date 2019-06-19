@@ -173,7 +173,7 @@ This library has been developed by Jerome Revaud, Rafael de Rezende, Cesar de So
 
 [1] Gordo, A., Almazan, J., Revaud, J., Larlus, D., [End-to-end Learning of Deep Visual Representations for Image Retrieval](https://arxiv.org/abs/1610.07940). IJCV 2017
 
-[2] Revaud, J., de Souza, C., Rezende, R.S., Almazan, J., [Learning with Average Precision: Training Image Retrieval with a Listwise Loss](). ArXiv 2019
+[2] Revaud, J., de Souza, C., Rezende, R.S., Almazan, J., [Learning with Average Precision: Training Image Retrieval with a Listwise Loss](https://arxiv.org/abs/1906.07589). ArXiv 2019
 
 [3] Tolias, G., Sicre, R., Jegou, H., [Particular object retrieval with integral max-pooling of CNN activations](https://arxiv.org/abs/1511.05879). ICLR 2016
 
