@@ -6,17 +6,17 @@ This repository contains the models and the evaluation scripts (in Python3 and P
 Albert Gordo, Jon Almazan, Jerome Revaud, Diane Larlus, IJCV 2017 [\[PDF\]](https://arxiv.org/abs/1610.07940)
 
 **[2] Learning with Average Precision: Training Image Retrieval with a Listwise Loss**
-Jerome Revaud, Rafael S. Rezende, Cesar de Souza, Jon Almazan, arXiv 2019 [\[PDF\]](https://es.naverlabs.com/jon-almazan/deep-image-retrieval/files/4381/paper.pdf)
+Jerome Revaud, Rafael S. Rezende, Cesar de Souza, Jon Almazan, arXiv 2019 [\[PDF\]](https://arxiv.org/abs/1906.07589)
 
 
 Both papers tackle the problem of image retrieval and explore different ways to learn deep visual representations for this task. In both cases, a CNN is used to extract a feature map that is aggregated into a compact, fixed-length representation by a global-aggregation layer*. Finally, this representation is first projected with a FC, and then L2 normalized so images can be efficiently compared with the dot product.
 
 
-![dir_network](https://es.naverlabs.com/storage/user/2353/files/f943154c-7736-11e9-83fd-bd0ab10db282)
+![dir_network](https://user-images.githubusercontent.com/228798/59742085-aae19f80-9221-11e9-8063-e5f2528c304a.png)
 
 All components in this network, including the aggregation layer, are differentiable, which makes it end-to-end trainable for the end task. In [1], a Siamese architecture that combines three streams with a triplet loss was proposed to train this network.  In [2], this work was extended by replacing the triplet loss with a new loss that directly optimizes for Average Precision.
 
-![Losses](https://es.naverlabs.com/storage/user/2353/files/f50571c4-82f2-11e9-8cf4-228334f7c335)
+![Losses](https://user-images.githubusercontent.com/228798/59742025-7a9a0100-9221-11e9-9d58-1494716e9071.png)
 
 \* Originally, [1] used R-MAC pooling [3] as the global-aggregation layer. However, due to its efficiency and better performace we have replaced the R-MAC pooling layer with the Generalized-mean pooling layer (GeM) proposed in [4]. You can find the original implementation of [1] in Caffe following [this link](https://europe.naverlabs.com/Research/Computer-Vision/Learning-Visual-Representations/Deep-Image-Retrieval/).
 
@@ -88,18 +88,14 @@ python -m dirtorch.test_dir --dataset DATASET --checkpoint PATH_TO_MODEL
 - `--trfs`: input image transformations (can be used to apply multi-scale) [default: None]
 - `--gpu`: selects the GPU ID (-1 selects the CPU)
 
-For example, to reproduce the results of the Resnet101-AP_loss model on the RParis6K dataset run:
+For example, to reproduce the results of the Resnet101-AP_loss model on the RParis6K dataset download the model `Resnet101-AP-GeM` and run:
 
 ```
 cd $DIR_ROOT
 export DB_ROOT=/PATH/TO/YOUR/DATASETS
 
-mkdir -p dirtorch/data/models
-wget https://bit.ly/2LGLbnj -O model.tgz
-tar -C dirtorch/data/models -xzf model.tgz && rm model.tgz
-
 python -m dirtorch.test_dir --dataset RParis6K
-		--checkpoint dirtorch/data/models/resnet101_APloss_gem.pt
+		--checkpoint dirtorch/data/Resnet101-AP-GeM.pt
 		--whiten Landmarks_clean --whitenp 0.25 --gpu 0
 ```
 
