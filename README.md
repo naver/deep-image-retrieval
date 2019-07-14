@@ -59,11 +59,11 @@ The table below contains the pre-trained models that we provide with this librar
 
 | Model | Oxford5K | Paris6K |  ROxford5K (med/hard) | RParis6K (med/hard) |
 |---	|:-:|:-:|:-:|:-:|
-|  [Resnet101-TL-MAC]() |  84.2 	|  91.0| 63.6 / 37.1 	|   76.7 / 55.7  |
+|  [Resnet101-TL-MAC](https://drive.google.com/file/d/13MUGNwn_CYGZvqDBD8FGD8fVYxThsSDg/view?usp=sharing) |  84.2 	|  91.0| 63.6 / 37.1 	|   76.7 / 55.7  |
 |  [Resnet101-TL-GeM](https://drive.google.com/open?id=1vhm1GYvn8T3-1C4SPjPNJOuTU9UxKAG6) | 85.5 | 93.4 | 64.8 / 41.6	|  78.9 / 59.4  |
-|  [Resnet50-AP-GeM]() | 87.9 	| 91.9 | 65.8 / 41.7| 77.6 / 57.3 |
+|  [Resnet50-AP-GeM](https://drive.google.com/file/d/1oPtE_go9tnsiDLkWjN4NMpKjh-_md1G5/view?usp=sharing) | 87.9 	| 91.9 | 65.8 / 41.7| 77.6 / 57.3 |
 |  [Resnet101-AP-GeM](https://drive.google.com/open?id=1UWJGDuHtzaQdFhSMojoYVQjmCXhIwVvy) | 89.3 | 93.0 | 67.4 / 42.8|  80.4/61.0 |
-|  [Resnet101-AP-GeM-LM18]()** |  88.4	| 93.0 | 66.5 / 43.1	|   80.2 / 60.4  |
+|  [Resnet101-AP-GeM-LM18](https://drive.google.com/open?id=1r76NLHtJsH-Ybfda4aLkUIoW3EEsi25I)** |  88.4	| 93.0 | 66.5 / 43.1	|   80.2 / 60.4  |
 
 
 The name of the model encodes the backbone architecture of the network and the loss that has been used to train it (TL for triplet loss and AP for Average Precision loss). All models use **Generalized-mean pooling (GeM)** [3] as the global pooling mechanism, except for the model in the first row that uses MAC [3] \(i.e. max-pooling), and have been trained on the **Landmarks-clean** [1] dataset (the clean version of the [Landmarks dataset](http://sites.skoltech.ru/compvision/projects/neuralcodes/)) directly **fine-tuning from ImageNet**. These numbers have been obtained using a **single resolution** and applying **whitening** to the output features (which has also been learned on Landmarks-clean). For a detailed explanation of all the hyper-parameters see [1] and [2] for the triplet loss and AP loss models, respectively.
@@ -88,7 +88,7 @@ python -m dirtorch.test_dir --dataset DATASET --checkpoint PATH_TO_MODEL
 - `--trfs`: input image transformations (can be used to apply multi-scale) [default: None]
 - `--gpu`: selects the GPU ID (-1 selects the CPU)
 
-For example, to reproduce the results of the Resnet101-AP_loss model on the RParis6K dataset download the model `Resnet101-AP-GeM` and run:
+For example, to reproduce the results of the Resnet101-AP_loss model on the RParis6K dataset download the model `Resnet101-AP-GeM.pt` from [here](https://drive.google.com/open?id=1mi50tG6oXY1eE9yJnmGCPdTmlIjG7mr0) and run:
 
 ```
 cd $DIR_ROOT
