@@ -6,7 +6,7 @@ This repository contains the models and the evaluation scripts (in Python3 and P
 Albert Gordo, Jon Almazan, Jerome Revaud, Diane Larlus, IJCV 2017 [\[PDF\]](https://arxiv.org/abs/1610.07940)
 
 **[2] Learning with Average Precision: Training Image Retrieval with a Listwise Loss**
-Jerome Revaud, Rafael S. Rezende, Cesar de Souza, Jon Almazan, arXiv 2019 [\[PDF\]](https://arxiv.org/abs/1906.07589)
+Jerome Revaud, Jon Almazan, Rafael S. Rezende, Cesar de Souza, arXiv 2019 [\[PDF\]](https://arxiv.org/abs/1906.07589)
 
 
 Both papers tackle the problem of image retrieval and explore different ways to learn deep visual representations for this task. In both cases, a CNN is used to extract a feature map that is aggregated into a compact, fixed-length representation by a global-aggregation layer*. Finally, this representation is first projected with a FC, and then L2 normalized so images can be efficiently compared with the dot product.
@@ -62,8 +62,8 @@ The table below contains the pre-trained models that we provide with this librar
 |  [Resnet101-TL-MAC](https://drive.google.com/file/d/13MUGNwn_CYGZvqDBD8FGD8fVYxThsSDg/view?usp=sharing) |  84.2 	|  91.0| 63.6 / 37.1 	|   76.7 / 55.7  |
 |  [Resnet101-TL-GeM](https://drive.google.com/open?id=1vhm1GYvn8T3-1C4SPjPNJOuTU9UxKAG6) | 85.5 | 93.4 | 64.8 / 41.6	|  78.9 / 59.4  |
 |  [Resnet50-AP-GeM](https://drive.google.com/file/d/1oPtE_go9tnsiDLkWjN4NMpKjh-_md1G5/view?usp=sharing) | 87.9 	| 91.9 | 65.8 / 41.7| 77.6 / 57.3 |
-|  [Resnet101-AP-GeM](https://drive.google.com/open?id=1UWJGDuHtzaQdFhSMojoYVQjmCXhIwVvy) | 89.3 | 93.0 | 67.4 / 42.8|  80.4/61.0 |
-|  [Resnet101-AP-GeM-LM18](https://drive.google.com/open?id=1r76NLHtJsH-Ybfda4aLkUIoW3EEsi25I)** |  88.4	| 93.0 | 66.5 / 43.1	|   80.2 / 60.4  |
+|  [Resnet101-AP-GeM](https://drive.google.com/open?id=1UWJGDuHtzaQdFhSMojoYVQjmCXhIwVvy) | **89.3** | **93.0** | **67.4** / 42.8|  **80.4**/**61.0** |
+|  [Resnet101-AP-GeM-LM18](https://drive.google.com/open?id=1r76NLHtJsH-Ybfda4aLkUIoW3EEsi25I)** |  88.4	| **93.0** | 66.5 / **43.1**	|   80.2 / 60.4  |
 
 
 The name of the model encodes the backbone architecture of the network and the loss that has been used to train it (TL for triplet loss and AP for Average Precision loss). All models use **Generalized-mean pooling (GeM)** [3] as the global pooling mechanism, except for the model in the first row that uses MAC [3] \(i.e. max-pooling), and have been trained on the **Landmarks-clean** [1] dataset (the clean version of the [Landmarks dataset](http://sites.skoltech.ru/compvision/projects/neuralcodes/)) directly **fine-tuning from ImageNet**. These numbers have been obtained using a **single resolution** and applying **whitening** to the output features (which has also been learned on Landmarks-clean). For a detailed explanation of all the hyper-parameters see [1] and [2] for the triplet loss and AP loss models, respectively.
@@ -173,7 +173,7 @@ This library has been developed by Jerome Revaud, Rafael de Rezende, Cesar de So
 
 [1] Gordo, A., Almazan, J., Revaud, J., Larlus, D., [End-to-end Learning of Deep Visual Representations for Image Retrieval](https://arxiv.org/abs/1610.07940). IJCV 2017
 
-[2] Revaud, J., de Souza, C., Rezende, R.S., Almazan, J., [Learning with Average Precision: Training Image Retrieval with a Listwise Loss](https://arxiv.org/abs/1906.07589). ArXiv 2019
+[2] Revaud, J., Almazan, J., Rezende, R.S., de Souza, C., [Learning with Average Precision: Training Image Retrieval with a Listwise Loss](https://arxiv.org/abs/1906.07589). ArXiv 2019
 
 [3] Tolias, G., Sicre, R., Jegou, H., [Particular object retrieval with integral max-pooling of CNN activations](https://arxiv.org/abs/1511.05879). ICLR 2016
 
