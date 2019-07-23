@@ -6,10 +6,10 @@ This repository contains the models and the evaluation scripts (in Python3 and P
 Albert Gordo, Jon Almazan, Jerome Revaud, Diane Larlus, IJCV 2017 [\[PDF\]](https://arxiv.org/abs/1610.07940)
 
 **[2] Learning with Average Precision: Training Image Retrieval with a Listwise Loss**
-Jerome Revaud, Jon Almazan, Rafael S. Rezende, Cesar de Souza, arXiv 2019 [\[PDF\]](https://arxiv.org/abs/1906.07589)
+Jerome Revaud, Jon Almazan, Rafael S. Rezende, Cesar de Souza, ICCV 2019 [\[PDF\]](https://arxiv.org/abs/1906.07589)
 
 
-Both papers tackle the problem of image retrieval and explore different ways to learn deep visual representations for this task. In both cases, a CNN is used to extract a feature map that is aggregated into a compact, fixed-length representation by a global-aggregation layer*. Finally, this representation is first projected with a FC, and then L2 normalized so images can be efficiently compared with the dot product.
+Both papers tackle the problem of image retrieval and explore different ways to learn deep visual representations for this task. In both cases, a CNN is used to extract a feature map that is aggregated into a compact, fixed-length representation by a global-aggregation layer*. Finally, this representation is first projected using a FC layer, and L2 normalized so images can be efficiently compared with the dot product.
 
 
 ![dir_network](https://user-images.githubusercontent.com/228798/59742085-aae19f80-9221-11e9-8063-e5f2528c304a.png)
@@ -157,7 +157,7 @@ Please consider citing the following papers in your publications if this helps y
 @inproceedings{RARS19,
  title = {Learning with Average Precision: Training Image Retrieval with a Listwise Loss},
  author = {Revaud, J. and Almazan, J. and Rezende, R.S. and de Souza, C.R.}
- booktitle = {ArXiv},
+ booktitle = {ICCV},
  year = {2019}
 }
 ```
