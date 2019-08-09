@@ -37,35 +37,11 @@ def create(cmd_line, to_tensor=False, **vars):
         raise SyntaxError("Cannot interpret this transform list: %s\nReason: %s" % (cmd_line, e))
 
 
-
-
 class Identity (object):
     """ Identity transform. It does nothing!
     """
     def __call__(self, inp):
         return inp
-
-
-class PadBad (object):
-    def __init__(self, size=None, color=(127,127,127)):
-        print('Warning! The Pad class has a bug')
-        self.size = size
-        assert len(color) == 3
-        if not all(isinstance(c,int) for c in color):
-            color = tuple([int(255*c) for c in color])
-        self.color = color
-
-    def __call__(self, inp):
-        img = F.grab_img(inp)
-        w, h = img.size
-        s = self.size or max(w,h)
-
-        if (s,s) != img.size:
-            img2 = Image.new('RGB', (s,s), self.color)
-            img2.paste(img, (0,0))
-            img = img2
-
-        return F.update_img_and_labels(inp, img, aff=(1,0,0,0,1,0))
 
 
 class Pad(object):
@@ -785,38 +761,3 @@ if __name__ == '__main__':
                 pl.xticks(())
                 pl.yticks(())
         pdb.set_trace()
-
-
-'''
-
-python -m utils.transforms --trfs "Scale(384), ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.1), RandomErasing(0.5), RandomRotation(10), RandomTilting(0.5, 'all'), RandomScale(240,320), RandomCrop(input_size)" --polygons
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
