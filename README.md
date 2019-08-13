@@ -1,6 +1,6 @@
 # Deep Image Retrieval
 
-This repository contains the models and the evaluation scripts (in Python3 and Pytorch 1.0) of the papers:
+This repository contains the models and the evaluation scripts (in Python3 and Pytorch 1.0+) of the papers:
 
 **[1] End-to-end Learning of Deep Visual Representations for Image Retrieval**
 Albert Gordo, Jon Almazan, Jerome Revaud, Diane Larlus, IJCV 2017 [\[PDF\]](https://arxiv.org/abs/1610.07940)
@@ -25,7 +25,7 @@ All components in this network, including the aggregation layer, are differentia
 In order to run this toolbox you will need:
 
 - Python3 (tested with Python 3.7.3)
-- PyTorch (tested with version 1.0.1)
+- PyTorch (tested with version 1.2)
 - The following packages: matplotlib, tqdm, scikit-learn
 
 With conda you can run the following commands:
@@ -103,7 +103,6 @@ And you should see the following output:
 
 ```
 >> Evaluation...
- top1 not implemented!
  * mAP-easy = 0.911001
  * mAP-medium = 0.80115
  * mAP-hard = 0.604583
