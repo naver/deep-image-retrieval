@@ -88,7 +88,7 @@ python -m dirtorch.test_dir --dataset DATASET --checkpoint PATH_TO_MODEL
 - `--trfs`: input image transformations (can be used to apply multi-scale) [default: None]
 - `--gpu`: selects the GPU ID (-1 selects the CPU)
 
-For example, to reproduce the results of the Resnet101-AP_loss model on the RParis6K dataset download the model `Resnet101-AP-GeM.pt` from [here](https://drive.google.com/open?id=1mi50tG6oXY1eE9yJnmGCPdTmlIjG7mr0) and run:
+For example, to reproduce the results of the Resnet101-AP_loss model on the RParis6K dataset download the model `Resnet-101-AP-GeM.pt` from [here](https://drive.google.com/open?id=1mi50tG6oXY1eE9yJnmGCPdTmlIjG7mr0) and run:
 
 ```
 cd $DIR_ROOT
@@ -122,7 +122,19 @@ python -m dirtorch.extract_features --dataset DATASET --checkpoint PATH_TO_MODEL
 
 where `--output` is used to specify the destination where the features will be saved. The rest of the parameters are the same as seen above.
 
-The library provides a generic class dataset (`ImageList`) that allows you to specify the list of images by providing a simple text file.
+For example, this is how the script can be used to extract a feature representation for each one of the images in the RParis6K dataset using the `Resnet-101-AP-GeM.pt` model, and storing them in `dirtorch/data/rparis6k_features.npy`:
+
+```
+cd $DIR_ROOT
+export DB_ROOT=/PATH/TO/YOUR/DATASETS
+
+python -m dirtorch.extract_features --dataset RParis6K
+		--checkpoint dirtorch/data/Resnet101-AP-GeM.pt
+		--output dirtorch/data/rparis6k_features.npy
+		--whiten Landmarks_clean --whitenp 0.25 --gpu 0
+```
+
+The library also provides a **generic class dataset** (`ImageList`) that allows you to specify the list of images by providing a simple text file.
 
 ```
 --dataset 'ImageList("PATH_TO_TEXTFILE" [, "IMAGES_ROOT"])'
