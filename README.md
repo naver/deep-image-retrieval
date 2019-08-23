@@ -122,7 +122,7 @@ python -m dirtorch.extract_features --dataset DATASET --checkpoint PATH_TO_MODEL
 
 where `--output` is used to specify the destination where the features will be saved. The rest of the parameters are the same as seen above.
 
-For example, this is how the script can be used to extract a feature representation for each one of the images in the RParis6K dataset using the `Resnet-101-AP-GeM.pt` model, and storing them in `dirtorch/data/rparis6k_features.npy`:
+For example, this is how the script can be used to extract a feature representation for each one of the images in the RParis6K dataset using the `Resnet-101-AP-GeM.pt` model, and storing them in `rparis6k_features.npy`:
 
 ```
 cd $DIR_ROOT
@@ -130,7 +130,7 @@ export DB_ROOT=/PATH/TO/YOUR/DATASETS
 
 python -m dirtorch.extract_features --dataset RParis6K
 		--checkpoint dirtorch/data/Resnet101-AP-GeM.pt
-		--output dirtorch/data/rparis6k_features.npy
+		--output rparis6k_features.npy
 		--whiten Landmarks_clean --whitenp 0.25 --gpu 0
 ```
 
