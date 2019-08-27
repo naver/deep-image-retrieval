@@ -96,7 +96,7 @@ def extract_image_features(dataset, transforms, net, ret_imgs=False, same_size=F
 
 def eval_model(db, net, trfs, pooling='mean', gemp=3, detailed=False, whiten=None,
                aqe=None, adba=None, threads=8, batch_size=16, save_feats=None,
-               load_feats=None, load_distractors=None, dbg=()):
+               load_feats=None, dbg=()):
     """ Evaluate a trained model (network) on a given dataset.
     The dataset is supposed to contain the evaluation code.
     """
@@ -122,20 +122,16 @@ def eval_model(db, net, trfs, pooling='mean', gemp=3, detailed=False, whiten=Non
         qdescs = F.normalize(pool(qdescs, pooling, gemp), p=2, dim=1)
     else:
         bdescs = np.load(os.path.join(load_feats, 'feats.bdescs.npy'))
-        qdescs = np.load(os.path.join(load_feats, 'feats.qdescs.npy'))
+        if query_db is not db:
+            qdescs = np.load(os.path.join(load_feats, 'feats.qdescs.npy'))
+        else:
+            qdescs = bdescs
 
     if save_feats:
-        mkdir(save_feats, isfile=True)
-        np.save(save_feats+'.bdescs', bdescs.cpu().numpy())
+        mkdir(save_feats)
+        np.save(os.path.join(save_feats, 'feats.bdescs.npy'), bdescs.cpu().numpy())
         if query_db is not db:
-            np.save(save_feats+'.qdescs', qdescs.cpu().numpy())
-        exit()
-
-    if load_distractors:
-        ddescs = [np.load(os.path.join(load_distractors, '%d.bdescs.npy' % i))
-                  for i in tqdm.tqdm(range(0, 1000), 'Distractors')]
-        bdescs = np.concatenate([tonumpy(bdescs)] + ddescs)
-        qdescs = tonumpy(qdescs)
+            np.save(os.path.join(save_feats, 'feats.qdescs.npy'), qdescs.cpu().numpy())
 
     if whiten is not None:
         bdescs = common.whiten_features(tonumpy(bdescs), net.pca, **whiten)
@@ -169,7 +165,6 @@ def eval_model(db, net, trfs, pooling='mean', gemp=3, detailed=False, whiten=Non
                     res['APs'+'-'+mode] = apst
                 # Queries with no relevants have an AP of -1
                 res['mAP'+'-'+mode] = float(np.mean([e for e in apst if e >= 0]))
-
     except NotImplementedError:
         print(" AP not implemented!")
 
@@ -210,7 +205,6 @@ if __name__ == '__main__':
     parser.add_argument('--out-json', type=str, default="", help='path to output json')
     parser.add_argument('--detailed', action='store_true', help='return detailed evaluation')
     parser.add_argument('--save-feats', type=str, default="", help='path to output features')
-    parser.add_argument('--load-distractors', type=str, default="", help='path to load distractors from')
     parser.add_argument('--load-feats', type=str, default="", help='path to load features from')
 
     parser.add_argument('--threads', type=int, default=8, help='number of thread workers')
@@ -250,8 +244,7 @@ if __name__ == '__main__':
     # Evaluate
     res = eval_model(dataset, net, args.trfs, pooling=args.pooling, gemp=args.gemp, detailed=args.detailed,
                      threads=args.threads, dbg=args.dbg, whiten=args.whiten, aqe=args.aqe, adba=args.adba,
-                     save_feats=args.save_feats, load_feats=args.load_feats,
-                     load_distractors=args.load_distractors)
+                     save_feats=args.save_feats, load_feats=args.load_feats)
     print(' * ' + '\n * '.join(['%s = %g' % p for p in res.items()]))
 
     if args.out_json:
@@ -264,6 +257,3 @@ if __name__ == '__main__':
         mkdir(args.out_json)
         open(args.out_json, 'w').write(json.dumps(data, indent=1))
         print("saved to "+args.out_json)
-
-
-

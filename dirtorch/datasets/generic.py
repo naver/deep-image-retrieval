@@ -69,11 +69,13 @@ class ImageListLabels(LabelledDataset):
 
     def get_label(self, i, toint=False):
         label = self.labels[i]
-        if toint: label = self.cls_idx[ label ]
+        if toint:
+            label = self.cls_idx[label]
         return label
 
     def get_query_db(self):
         return self
+
 
 class ImageListLabelsQ(ImageListLabels):
     ''' Two list of images with labels: one for the dataset and one for the queries.
@@ -125,7 +127,7 @@ class ImageListRelevants(Dataset):
 
         Input: path to the pickle file
     """
-    def __init__(self, gt_file, root=None, img_dir = 'jpg', ext='.jpg'):
+    def __init__(self, gt_file, root=None, img_dir='jpg', ext='.jpg'):
         self.root = root
         self.img_dir = img_dir
 
@@ -146,17 +148,25 @@ class ImageListRelevants(Dataset):
         self.nquery = len(self.qimgs)
 
     def get_relevants(self, qimg_idx, mode='classic'):
-        if mode=='classic': rel = self.relevants[qimg_idx]
-        elif mode=='easy': rel = self.easy[qimg_idx]
-        elif mode=='medium': rel = self.easy[qimg_idx] + self.hard[qimg_idx]
-        elif mode=='hard': rel = self.hard[qimg_idx]
+        if mode == 'classic':
+            rel = self.relevants[qimg_idx]
+        elif mode == 'easy':
+            rel = self.easy[qimg_idx]
+        elif mode == 'medium':
+            rel = self.easy[qimg_idx] + self.hard[qimg_idx]
+        elif mode == 'hard':
+            rel = self.hard[qimg_idx]
         return rel
 
     def get_junk(self, qimg_idx, mode='classic'):
-        if mode=='classic': junk = self.junk[qimg_idx]
-        elif mode=='easy': junk = self.junk[qimg_idx] + self.hard[qimg_idx]
-        elif mode=='medium': junk = self.junk[qimg_idx]
-        elif mode=='hard': junk = self.junk[qimg_idx] + self.easy[qimg_idx]
+        if mode == 'classic':
+            junk = self.junk[qimg_idx]
+        elif mode == 'easy':
+            junk = self.junk[qimg_idx] + self.hard[qimg_idx]
+        elif mode == 'medium':
+            junk = self.junk[qimg_idx]
+        elif mode == 'hard':
+            junk = self.junk[qimg_idx] + self.easy[qimg_idx]
         return junk
 
     def get_query_filename(self, qimg_idx, root=None):
@@ -175,38 +185,42 @@ class ImageListRelevants(Dataset):
         return ImageListROIs(self.root, self.img_dir, self.qimgs, self.qroi)
 
     def get_query_groundtruth(self, query_idx, what='AP', mode='classic'):
-        res = -np.ones(self.nimg, dtype=np.int8) # all negatives
-        res[self.get_relevants(query_idx, mode)] = 1 # positives
-        res[self.get_junk(query_idx, mode)] = 0 # junk
+        # negatives
+        res = -np.ones(self.nimg, dtype=np.int8)
+        # positive
+        res[self.get_relevants(query_idx, mode)] = 1
+        # junk
+        res[self.get_junk(query_idx, mode)] = 0
         return res
 
     def eval_query_AP(self, query_idx, scores):
         """ Evaluates AP for a given query.
         """
-        from ..utils.evaluation import compute_AP
+        from ..utils.evaluation import compute_average_precision
         if self.relevants:
-            gt = self.get_query_groundtruth(query_idx, 'AP') # labels in {-1, 0, 1}
-            if gt.shape != scores.shape:
-                # TODO: Get this number in a less hacky way. This was the number of non-corrupted distractors
-                gt = np.concatenate([gt, np.full((976089,), fill_value=-1)])
+            gt = self.get_query_groundtruth(query_idx, 'AP')  # labels in {-1, 0, 1}
             assert gt.shape == scores.shape, "scores should have shape %s" % str(gt.shape)
             assert -1 <= gt.min() and gt.max() <= 1, "bad ground-truth labels"
             keep = (gt != 0)  # remove null labels
-            return compute_AP(gt[keep]>0, scores[keep])
+
+            gt, scores = gt[keep], scores[keep]
+            gt_sorted = gt[np.argsort(scores)[::-1]]
+            positive_rank = np.where(gt_sorted == 1)[0]
+            ap = compute_average_precision(positive_rank)
         else:
             d = {}
             for mode in ('easy', 'medium', 'hard'):
-                gt = self.get_query_groundtruth(query_idx, 'AP', mode) # labels in {-1, 0, 1}
-                if gt.shape != scores.shape:
-                    # TODO: Get this number in a less hacky way. This was the number of non-corrupted distractors
-                    gt = np.concatenate([gt, np.full((976089,), fill_value=-1)])
+                gt = self.get_query_groundtruth(query_idx, 'AP', mode)  # labels in {-1, 0, 1}
                 assert gt.shape == scores.shape, "scores should have shape %s" % str(gt.shape)
                 assert -1 <= gt.min() and gt.max() <= 1, "bad ground-truth labels"
                 keep = (gt != 0)  # remove null labels
-                if sum(gt[keep]>0) == 0: #exclude queries with no relevants from the evaluation
+                if sum(gt[keep] > 0) == 0:  # exclude queries with no relevants from the evaluation
                     d[mode] = -1
                 else:
-                    d[mode] = compute_AP(gt[keep]>0, scores[keep])
+                    gt2, scores2 = gt[keep], scores[keep]
+                    gt_sorted = gt2[np.argsort(scores2)[::-1]]
+                    positive_rank = np.where(gt_sorted == 1)[0]
+                    d[mode] = compute_average_precision(positive_rank)
             return d
 
 
@@ -235,6 +249,7 @@ class ImageListROIs(Dataset):
             img = img.resize(resize, Image.ANTIALIAS if np.prod(resize) < np.prod(img.size) else Image.BICUBIC)
         return img
 
+
 def not_none(label):
     return label is not None
 
@@ -256,10 +271,12 @@ class ImageClusters(LabelledDataset):
 
         for img, cls in data.items():
             assert type(img) is str
-            if not filter(cls): continue
-            if type(cls) not in (str,int,type(None)): continue
-            self.imgs.append( img )
-            self.labels.append( cls )
+            if not filter(cls):
+                continue
+            if type(cls) not in (str, int, type(None)):
+                continue
+            self.imgs.append(img)
+            self.labels.append(cls)
 
         self.find_classes()
         self.nimg = len(self.imgs)
@@ -270,7 +287,8 @@ class ImageClusters(LabelledDataset):
 
     def get_label(self, i, toint=False):
         label = self.labels[i]
-        if toint: label = self.cls_idx[ label ]
+        if toint:
+            label = self.cls_idx[label]
         return label
 
 
