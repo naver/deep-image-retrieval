@@ -206,7 +206,7 @@ class ImageListRelevants(Dataset):
             gt, scores = gt[keep], scores[keep]
             gt_sorted = gt[np.argsort(scores)[::-1]]
             positive_rank = np.where(gt_sorted == 1)[0]
-            ap = compute_average_precision(positive_rank)
+            return compute_average_precision(positive_rank)
         else:
             d = {}
             for mode in ('easy', 'medium', 'hard'):
