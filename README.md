@@ -178,7 +178,7 @@ Please consider citing the following papers in your publications if this helps y
 This library has been developed by Jerome Revaud, Rafael de Rezende, Cesar de Souza, Diane Larlus, and Jon Almazan at **[Naver Labs Europe](https://europe.naverlabs.com)**.
 
 
-**Special thanks to Filip Radenovic (@filipradenovic).** We have used in this library the ROxford5K and RParis6K downloader from his awesome **[CNN-imageretrieval repository](https://github.com/filipradenovic/cnnimageretrieval-pytorch)**. Consider checking it out if you want to train your own models for image retrieval!
+**Special thanks to [Filip Radenovic](https://github.com/filipradenovic).** In this library, we have used the ROxford5K and RParis6K downloader from his awesome **[CNN-imageretrieval repository](https://github.com/filipradenovic/cnnimageretrieval-pytorch)**. Consider checking it out if you want to train your own models for image retrieval!
 
 ## References
 
