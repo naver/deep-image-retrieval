@@ -20,6 +20,14 @@ All components in this network, including the aggregation layer, are differentia
 
 \* Originally, [1] used R-MAC pooling [3] as the global-aggregation layer. However, due to its efficiency and better performace we have replaced the R-MAC pooling layer with the Generalized-mean pooling layer (GeM) proposed in [4]. You can find the original implementation of [1] in Caffe following [this link](https://europe.naverlabs.com/Research/Computer-Vision/Learning-Visual-Representations/Deep-Image-Retrieval/).
 
+
+## News
+
+- **(6/9/2019)** Add AP, Tie-aware AP, Triplet Margin, and Triplet LogExp losses for reference
+- **(5/9/2019)** Update evaluation and AP numbers for all the benchmarks
+- **(22/7/2019)** Paper **_Learning with Average Precision: Training Image Retrieval with a Listwise Loss_** accepted at ICCV 2019
+
+
 ## Pre-requisites
 
 In order to run this toolbox you will need:
@@ -32,7 +40,7 @@ With conda you can run the following commands:
 
 ```
 conda install numpy matplotlib tqdm scikit-learn
-conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
+conda install pytorch torchvision -c pytorch
 ```
 
 ## Installation
