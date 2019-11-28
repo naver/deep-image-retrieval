@@ -111,9 +111,9 @@ And you should see the following output:
 
 ```
 >> Evaluation...
- * mAP-easy = 0.911001
- * mAP-medium = 0.80115
- * mAP-hard = 0.604583
+ * mAP-easy = 0.907568
+ * mAP-medium = 0.803098
+ * mAP-hard = 0.608556
 ```
 
 **Note:** this script integrates an automatic downloader for the Oxford5K, Paris6K, ROxford5K, and RParis6K datasets (kudos to Filip Radenovic ;)). The datasets will be saved in `$DB_ROOT`.
