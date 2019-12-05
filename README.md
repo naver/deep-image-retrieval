@@ -23,7 +23,7 @@ All components in this network, including the aggregation layer, are differentia
 
 ## News
 
-- **(6/9/2019)** Add AP, Tie-aware AP, Triplet Margin, and Triplet LogExp losses for reference
+- **(6/9/2019)** AP loss, Tie-aware AP loss, Triplet Margin loss, and Triplet LogExp loss added for reference
 - **(5/9/2019)** Update evaluation and AP numbers for all the benchmarks
 - **(22/7/2019)** Paper **_Learning with Average Precision: Training Image Retrieval with a Listwise Loss_** accepted at ICCV 2019
 
@@ -33,8 +33,8 @@ All components in this network, including the aggregation layer, are differentia
 In order to run this toolbox you will need:
 
 - Python3 (tested with Python 3.7.3)
-- PyTorch (tested with version 1.2)
-- The following packages: matplotlib, tqdm, scikit-learn
+- PyTorch (tested with version 1.4)
+- The following packages: numpy, matplotlib, tqdm, scikit-learn
 
 With conda you can run the following commands:
 
@@ -83,8 +83,8 @@ The name of the model encodes the backbone architecture of the network and the l
 The script `test_dir.py` can be used to evaluate the pre-trained models provided and to reproduce the results above:
 
 ```
-python -m dirtorch.test_dir --dataset DATASET --checkpoint PATH_TO_MODEL
-		[--whiten DATASET] [--whitenp POWER] [--aqe ALPHA-QEXP]
+python -m dirtorch.test_dir --dataset DATASET --checkpoint PATH_TO_MODEL \
+		[--whiten DATASET] [--whitenp POWER] [--aqe ALPHA-QEXP] \
 		[--trfs TRANSFORMS] [--gpu ID] [...]
 ```
 
@@ -102,8 +102,8 @@ For example, to reproduce the results of the Resnet101-AP_loss model on the RPar
 cd $DIR_ROOT
 export DB_ROOT=/PATH/TO/YOUR/DATASETS
 
-python -m dirtorch.test_dir --dataset RParis6K
-		--checkpoint dirtorch/data/Resnet101-AP-GeM.pt
+python -m dirtorch.test_dir --dataset RParis6K \
+		--checkpoint dirtorch/data/Resnet101-AP-GeM.pt \
 		--whiten Landmarks_clean --whitenp 0.25 --gpu 0
 ```
 
@@ -123,8 +123,8 @@ And you should see the following output:
 You can also use the pre-trained models to extract features from your own datasets or collection of images. For that we provide the script `feature_extractor.py`:
 
 ```
-python -m dirtorch.extract_features --dataset DATASET --checkpoint PATH_TO_MODEL
-		--output PATH_TO_FILE [--whiten DATASET] [--whitenp POWER]
+python -m dirtorch.extract_features --dataset DATASET --checkpoint PATH_TO_MODEL \
+		--output PATH_TO_FILE [--whiten DATASET] [--whitenp POWER] \
 		[--trfs TRANSFORMS] [--gpu ID] [...]
 ```
 
@@ -136,9 +136,9 @@ For example, this is how the script can be used to extract a feature representat
 cd $DIR_ROOT
 export DB_ROOT=/PATH/TO/YOUR/DATASETS
 
-python -m dirtorch.extract_features --dataset RParis6K
-		--checkpoint dirtorch/data/Resnet101-AP-GeM.pt
-		--output rparis6k_features.npy
+python -m dirtorch.extract_features --dataset RParis6K \
+		--checkpoint dirtorch/data/Resnet101-AP-GeM.pt \
+		--output rparis6k_features.npy \
 		--whiten Landmarks_clean --whitenp 0.25 --gpu 0
 ```
 
