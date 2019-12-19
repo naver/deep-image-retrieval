@@ -34,7 +34,7 @@ def create_model(arch, pretrained='', delete_fc=False, *args, **kwargs):
         optional arguments
     '''
     # creating model
-    if arch not in globals():
+    if arch not in model_names:
         raise NameError("unknown model architecture '%s'\nSelect one in %s" % (
                          arch, ','.join(model_names)))
     model = globals()[arch](*args, **kwargs)
