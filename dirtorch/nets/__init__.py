@@ -8,19 +8,17 @@ import pdb
 import torch
 from collections import OrderedDict
 
+internal_funcs = set(globals().keys())
+
 from .backbones.resnet import resnet101, resnet50, resnet18, resnet152
 from .rmac_resnet import resnet18_rmac, resnet50_rmac, resnet101_rmac, resnet152_rmac
 from .rmac_resnet_fpn import resnet18_fpn_rmac, resnet50_fpn_rmac, resnet101_fpn_rmac, resnet101_fpn0_rmac, resnet152_fpn_rmac
 
-internal_funcs = set(globals().keys())
 
-
-def list_archs():
-    model_names = {name for name in globals()
-                   if name.islower() and not name.startswith("__")
-                   and name not in internal_funcs
-                   and callable(globals()[name])}
-    return model_names
+model_names = {name for name in globals()
+               if name.islower() and not name.startswith("__")
+               and name not in internal_funcs
+               and callable(globals()[name])}
 
 
 def create_model(arch, pretrained='', delete_fc=False, *args, **kwargs):
