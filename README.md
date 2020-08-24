@@ -184,7 +184,7 @@ If you want to convert your own dataset into kapture, please find some examples 
 Once installed, you can extract global features for your kapture dataset with:
 ```bash
 cd $DIR_ROOT
-python dirtorch/extract_kapture.py --kapture-root pathto/yourkapturedataset --checkpoint dirtorch/data/Resnet101-AP-GeM-LM18.pt --gpu 0
+python -m dirtorch.extract_kapture --kapture-root pathto/yourkapturedataset --checkpoint dirtorch/data/Resnet101-AP-GeM-LM18.pt --gpu 0
 ```
 
 Run `python dirtorch/extract_kapture.py --help` for more information on the extraction parameters. 
