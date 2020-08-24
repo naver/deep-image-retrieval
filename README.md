@@ -47,7 +47,7 @@ conda install pytorch torchvision -c pytorch
 
 ```
 # Download the code
-git clone git@es.naverlabs.com:jon-almazan/deep-image-retrieval.git
+git clone https://github.com/yocabon/deep-image-retrieval.git
 
 # Create env variables
 cd deep-image-retrieval
@@ -187,7 +187,7 @@ cd $DIR_ROOT
 python -m dirtorch.extract_kapture --kapture-root pathto/yourkapturedataset --checkpoint dirtorch/data/Resnet101-AP-GeM-LM18.pt --gpu 0
 ```
 
-Run `python dirtorch/extract_kapture.py --help` for more information on the extraction parameters. 
+Run `python -m dirtorch.extract_kapture --help` for more information on the extraction parameters. 
 
 ## Citations
 
