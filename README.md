@@ -47,7 +47,7 @@ conda install pytorch torchvision -c pytorch
 
 ```
 # Download the code
-git clone https://github.com/yocabon/deep-image-retrieval.git
+git clone https://github.com/naver/deep-image-retrieval.git
 
 # Create env variables
 cd deep-image-retrieval
