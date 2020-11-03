@@ -88,8 +88,10 @@ def torch_set_seed(seed, cuda, randomize=True):
 
     if randomize and not seed:
         import time
-        seed = int(np.uint32(hash(time.time())))
-
+        try:
+            seed = int(np.uint32(hash(time.time())))
+        except OverflowError:
+            seed = int.from_bytes(os.urandom(4), byteorder='little', signed=False)
     if seed:
         np.random.seed(seed)
         torch.manual_seed(seed)

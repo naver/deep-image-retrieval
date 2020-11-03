@@ -47,7 +47,7 @@ conda install pytorch torchvision -c pytorch
 
 ```
 # Download the code
-git clone git@es.naverlabs.com:jon-almazan/deep-image-retrieval.git
+git clone https://github.com/naver/deep-image-retrieval.git
 
 # Create env variables
 cd deep-image-retrieval
@@ -160,6 +160,34 @@ Each row of the text file should contain a single path to a given image:
 
 Alternatively, you can also use relative paths, and use `IMAGES_ROOT` to specify the root folder.
 
+## Feature extraction with kapture datasets
+
+Kapture is a pivot file format, based on text and binary files, used to describe SFM (Structure From Motion) and more generally sensor-acquired data.
+
+It is available at https://github.com/naver/kapture.
+It contains conversion tools for popular formats and several popular datasets are directly available in kapture.
+
+It can be installed with:
+```bash
+pip install kapture
+```
+
+Datasets can be downloaded with:
+```bash
+kapture_download_dataset.py update
+kapture_download_dataset.py list
+# e.g.: install mapping and query of Extended-CMU-Seasons_slice22
+kapture_download_dataset.py install "Extended-CMU-Seasons_slice22_*"
+```
+If you want to convert your own dataset into kapture, please find some examples [here](https://github.com/naver/kapture/blob/master/doc/datasets.adoc).
+
+Once installed, you can extract global features for your kapture dataset with:
+```bash
+cd $DIR_ROOT
+python -m dirtorch.extract_kapture --kapture-root pathto/yourkapturedataset --checkpoint dirtorch/data/Resnet101-AP-GeM-LM18.pt --gpu 0
+```
+
+Run `python -m dirtorch.extract_kapture --help` for more information on the extraction parameters. 
 
 ## Citations
 
